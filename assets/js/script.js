@@ -56,6 +56,8 @@ var createTaskEl = function(taskDataObj) {
   listItemEl.appendChild(taskActionsEl);
   tasksToDoEl.appendChild(listItemEl);
 
+  var taskInfoEl
+
   taskDataObj.id = taskIdCounter;
   tasks.push(taskDataObj);
 
@@ -220,6 +222,21 @@ var deleteTask = function(taskId) {
 
 var saveTasks = function() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+// load tasks function
+var loadTasks = function () {
+  var savedTasks = localStorage.getItem("tasks");
+  // console.log(loadTasks);
+  if (!savedTasks) {
+    return false;
+  }
+  tasks = JSON.parse(tasks);
+
+  for (i = 0; i < savedTasks.length; i++) {
+    // pass each task object into the `createTaskEl()` function
+    createTaskEl(savedTasks[i]);
+  }
 }
 
 // Create a new task
